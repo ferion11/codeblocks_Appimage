@@ -1,0 +1,36 @@
+#!/bin/bash
+HERE="$(dirname "$(readlink -f "${0}")")"
+#------------------------------
+
+# Libs and deps variables
+export LD_LIBRARY_PATH="$HERE/usr/lib/x86_64-linux-gnu":$LD_LIBRARY_PATH
+export LD_LIBRARY_PATH="$HERE/lib":$LD_LIBRARY_PATH
+
+#------------------------------
+# Allow the AppImage to be symlinked
+if [ -n "$APPIMAGE" ] ; then
+	BINARY_NAME=$(basename "$ARGV0")
+else
+	BINARY_NAME=$(basename "$0")
+fi
+
+MAIN="$HERE_LINK/usr/bin/codeblocks"
+if [ -n "$1" ] && [ -x "$HERE/bin/$1" ] ; then
+	MAIN="$HERE/bin/$1" ; shift
+elif [ -n "$1" ] && [ -x "$HERE/usr/bin/$1" ] ; then
+	MAIN="$HERE/usr/bin/$1" ; shift
+elif [ -x "$HERE/bin/$BINARY_NAME" ] ; then
+	MAIN="$HERE/bin/$BINARY_NAME"
+elif [ -x "$HERE/usr/bin/$BINARY_NAME" ] ; then
+	MAIN="$HERE/usr/bin/$BINARY_NAME"
+else
+	MAIN="$HERE/usr/bin/codeblocks"
+fi
+
+# Exec outside apps with inside environment (make the link name "ExternalExec")
+if [ "$BINARY_NAME" = "ExternalExec" ] && [ -n "$1" ] && [ -x "$1" ]; then
+	MAIN="$1" ; shift
+fi
+
+export PATH=$HERE/bin:$HERE/usr/bin:$PATH
+"$MAIN" "$@" | cat
