@@ -4,7 +4,10 @@ HERE="$(dirname "$(readlink -f "${0}")")"
 
 # Libs and deps variables
 export LD_LIBRARY_PATH="$HERE/usr/lib/x86_64-linux-gnu":$LD_LIBRARY_PATH
-export LD_LIBRARY_PATH="$HERE/lib":$LD_LIBRARY_PATH
+export LD_LIBRARY_PATH="$HERE/usr/lib":$LD_LIBRARY_PATH
+
+# codeblocks plugins
+export LD_LIBRARY_PATH="$HERE/usr/lib/codeblocks/plugins/:$HERE/usr/lib/codeblocks/wxContribItems":$LD_LIBRARY_PATH
 
 #------------------------------
 # Allow the AppImage to be symlinked

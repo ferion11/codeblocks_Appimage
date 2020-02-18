@@ -22,7 +22,7 @@ cd "$WORKDIR" || die "ERROR: Directory don't exist: $WORKDIR"
 pkgcachedir='/tmp/.pkgdeploycache'
 mkdir -p $pkgcachedir
 
-aptitude -y -d -o dir::cache::archives="$pkgcachedir" install codeblocks codeblocks-contrib wxwidgets2.8
+aptitude -y -d -o dir::cache::archives="$pkgcachedir" install codeblocks codeblocks-contrib libjpeg-turbo8
 
 #extras
 #wget -nv -c http://ftp.osuosl.org/pub/ubuntu/pool/main/libf/libffi/libffi6_3.2.1-4_amd64.deb -P $pkgcachedir
@@ -34,7 +34,7 @@ echo "All files in $pkgcachedir: $(ls $pkgcachedir)"
 
 ##clean some packages to use natives ones:
 rm -rf $pkgcachedir ; rm -rf share/man ; rm -rf usr/share/doc ; rm -rf usr/share/lintian ; rm -rf var ; rm -rf sbin ; rm -rf usr/share/man
-rm -rf usr/share/mime ; rm -rf usr/share/pkgconfig; rm -rf lib;
+rm -rf usr/share/mime ; rm -rf usr/share/pkgconfig; rm -rf lib; rm -rf etc;
 #---------------------------------
 #===========================================================================================
 
