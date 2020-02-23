@@ -26,6 +26,9 @@ aptitude -y -d -o dir::cache::archives="$pkgcachedir" install codeblocks codeblo
 
 #extras
 #wget -nv -c http://ftp.osuosl.org/pub/ubuntu/pool/main/libf/libffi/libffi6_3.2.1-4_amd64.deb -P $pkgcachedir
+P_NAME=$(echo "codeblocks")
+P_FILENAME=$(ls $pkgcachedir/codeblocks-common*.deb)
+P_VERSION=$(echo $P_FILENAME | cut -d- -f2 | cut -d_ -f2)
 
 #find $pkgcachedir -name '*deb' ! -name 'libwine*' ! -name '*amd64*' -exec dpkg -x {} . \;
 find $pkgcachedir -name '*deb' ! -name 'mesa*' -exec dpkg -x {} . \;
@@ -54,6 +57,6 @@ cp resource/* $WORKDIR
 
 ./appimagetool.AppImage --appimage-extract
 
-export ARCH=x86_64; squashfs-root/AppRun -v $WORKDIR -u 'gh-releases-zsync|ferion11|codeblocks_Appimage|continuous|codeblocks-*arch*.AppImage.zsync' codeblocks-${ARCH}.AppImage
+export ARCH=x86_64; squashfs-root/AppRun -v $WORKDIR -u 'gh-releases-zsync|ferion11|$P_NAME_Appimage|continuous|$P_NAME-$P_VERSION-*arch*.AppImage.zsync' $P_NAME-$P_VERSION-${ARCH}.AppImage
 
 echo "All files at the end of script: $(ls)"
