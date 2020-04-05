@@ -5,7 +5,8 @@ WORKDIR="workdir"
 die() { echo >&2 "$*"; exit 1; };
 #=========================
 
-add-apt-repository ppa:pasgui/ppa -y
+#add-apt-repository ppa:pasgui/ppa -y
+add-apt-repository ppa:codeblocks-devs/release -y
 
 #-----------------------------
 #dpkg --add-architecture i386
