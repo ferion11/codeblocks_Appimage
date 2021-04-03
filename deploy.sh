@@ -23,7 +23,7 @@ cd "$WORKDIR" || die "ERROR: Directory don't exist: $WORKDIR"
 pkgcachedir='/tmp/.pkgdeploycache'
 mkdir -p $pkgcachedir
 
-sudo aptitude -y -d -o dir::cache::archives="$pkgcachedir" install codeblocks codeblocks-contrib libjpeg-turbo8 || die "* aptitude fail!"
+sudo aptitude -y -d -o dir::cache::archives="$pkgcachedir" install codeblocks codeblocks-contrib libjpeg-turbo8 libwxgtk3.0-0v5 || die "* aptitude fail!"
 
 sudo chmod 777 $pkgcachedir -R
 
