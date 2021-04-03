@@ -5,14 +5,14 @@ WORKDIR="workdir"
 die() { echo >&2 "$*"; exit 1; };
 #=========================
 
-#add-apt-repository ppa:pasgui/ppa -y
-add-apt-repository ppa:codeblocks-devs/release -y
+#sudo add-apt-repository ppa:pasgui/ppa -y
+sudo add-apt-repository ppa:codeblocks-devs/release -y
 
 #-----------------------------
 #dpkg --add-architecture i386
-apt update
+sudo apt update
 #apt install -y aptitude wget file bzip2 gcc-multilib
-apt install -y aptitude wget file bzip2
+sudo apt install -y aptitude wget file bzip2 || die "ERROR: Some packages not found! to run the script!!!"
 #===========================================================================================
 # Get inex
 # using the package
@@ -23,7 +23,9 @@ cd "$WORKDIR" || die "ERROR: Directory don't exist: $WORKDIR"
 pkgcachedir='/tmp/.pkgdeploycache'
 mkdir -p $pkgcachedir
 
-aptitude -y -d -o dir::cache::archives="$pkgcachedir" install codeblocks codeblocks-contrib libjpeg-turbo8
+sudo aptitude -y -d -o dir::cache::archives="$pkgcachedir" install codeblocks codeblocks-contrib libjpeg-turbo8 || die "* aptitude fail!"
+
+sudo chmod 777 $pkgcachedir -R
 
 #extras
 #wget -nv -c http://ftp.osuosl.org/pub/ubuntu/pool/main/libf/libffi/libffi6_3.2.1-4_amd64.deb -P $pkgcachedir
